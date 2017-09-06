@@ -5381,6 +5381,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.STATUS_BAR_BATTERY_SAVER_COLOR),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_FOOTER_WARNINGS),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -5403,6 +5406,9 @@ public class StatusBar extends SystemUI implements DemoMode,
                         mContext.getContentResolver(),
                         Settings.Secure.STATUS_BAR_BATTERY_SAVER_COLOR, 0xfff4511e,
                         UserHandle.USER_CURRENT);
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.QS_FOOTER_WARNINGS))) {
+                setQsPanelOptions();
             }
         }
 
@@ -5411,6 +5417,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             setStatusBarWindowViewOptions();
             setLockscreenMediaMetadata();
             setStatusbarBatterySaverColor();
+            setQsPanelOptions();
         }
     }
 
@@ -5434,6 +5441,12 @@ public class StatusBar extends SystemUI implements DemoMode,
     private void setStatusbarBatterySaverColor() {
         mBatterySaverColor = Settings.Secure.getIntForUser(mContext.getContentResolver(),
                 Settings.Secure.STATUS_BAR_BATTERY_SAVER_COLOR, 0xfff4511e, mCurrentUserId);
+    }
+
+    private void setQsPanelOptions() {
+        if (mQSPanel != null) {
+            mQSPanel.updateSettings();
+        }
     }
 
     private RemoteViews.OnClickHandler mOnClickHandler = new RemoteViews.OnClickHandler() {
