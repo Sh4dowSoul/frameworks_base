@@ -6260,6 +6260,11 @@ public class WindowManagerService extends IWindowManager.Stub
     }
 
     @Override
+    public void sendGzospAction(Intent intent) {
+        mPolicy.sendGzospAction(intent);
+    }
+
+    @Override
     public void lockNow(Bundle options) {
         mPolicy.lockNow(options);
     }
