@@ -39,7 +39,7 @@ public class GlobalActionsImpl implements GlobalActions {
     public void showGlobalActions(GlobalActionsManager manager) {
         if (mGlobalActions == null) {
             final ContextThemeWrapper context = new ContextThemeWrapper(mContext,
-                    android.R.style.Theme_Material_Light);
+                    android.R.style.Theme_Material_PowerMenu);
             mGlobalActions = new GlobalActionsDialog(context, manager);
         }
         mGlobalActions.showDialog(mKeyguardMonitor.isShowing(),
